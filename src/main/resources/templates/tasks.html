@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{allTasks}"></title>
+    <link th:insert="header.html :: link">
+    <div th:insert="header.html :: script"></div>
+</head>
+<body>
+<header th:insert="header.html :: div"></header>
+<h1>Tasks: </h1>
+<div th:if="${#lists.isEmpty(tasks)}">
+    <a th:text="#{noTask}"></a>
+</div>
+<table th:if="${not #lists.isEmpty(tasks)}">
+    <tr th:each="task : ${tasks}">
+        <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.taskName}"></a></td>
+        <td th:text=" #{due} + ' - > ' + ${#temporals.format(task.taskDue, 'dd-MM-yyyy HH:mm')}">
+        <td><a th:href="@{/tasks/edit/{id}(id=${task.id})}" th:text="#{editTask}"></a></td>
+        <td><a th:href="@{/tasks/delete/{id}(id=${task.id})}" th:text="#{deleteTask}"></a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:insert="header.html :: link">
+    <div th:insert="header.html :: script"></div>
+    <title th:text="#{taskdetail}"></title>
+</head>
+<body>
+<header th:insert="header.html :: div"></header>
+<h1 th:text="#{taskDetail}"></h1>
+<p th:if="${task == null}">Task not found</p>
+<table th:if="${task !=null}">
+    <tr>
+        <td th:text="#{taskName}"></td>
+        <td th:text="${task.taskName}">
+    </tr>
+    <tr>
+        <td th:text="#{taskDescription}"></td>
+        <td th:text="${task.taskDescription}">
+    </tr>
+    <tr>
+        <td th:text="#{due}"></td>
+        <td th:text="${#temporals.format(task.taskDue, 'dd-MM-yyyy HH:mm')}">
+    </tr>
+    <tr>
+        <td><a th:href="@{/tasks/} + ${id} + '/sub/create'" th:text="#{createSubtask}"></a></td>
+    </tr>
+
+    <div th:if="${not #lists.isEmpty(subtasks)}">
+        <h1 th:text="#{subtasks}"></h1>
+        <table>
+            <tr th:each="subtask : ${subtasks}">
+                <td th:text="${subtask}"></td>
+                <td><a th:href="@{/tasks/} + ${task.id} + '/sub/delete/' + ${subtask.id}" th:text="#{deleteSubtask}"></a></td>
+            </tr>
+        </table>
+    </div>
+
+</table>
+
+
+</body>
+</html>

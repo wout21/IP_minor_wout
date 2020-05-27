@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{signIn}"></title>
+    <div th:insert="header.html :: script"></div>
+</head>
+<body>
+<h1 th:text="#{signIn}"></h1>
+
+<p th:if="${param.logout}" th:text="#{logoutMessage}"></p>
+<p th:if="${param.error}" th:text="#{invalidCredentials}"></p>
+<form th:method="post" th:action="@{/login}">
+    <div>
+        <label for="username" th:text="#{username}"></label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="password" th:text="#{password}"></label>
+        <input type="password" id="password" name="password">
+    </div>
+    <input type="submit" th:value="#{signIn}">
+</form>
+<a th:href="@{/signup}" th:text="#{signUp}"></a>
+</body>
+</html>
